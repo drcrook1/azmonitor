@@ -43,7 +43,7 @@ namespace DotNetCoreSqlDb.Controllers
             {
                 throw new Exception($"Todo | Not Found | id:{id}");
             }
-            using(_logger.BeginScope(new Dictionary<string, object> { { "dacrookmetric", id, "correlationid", "1234", "addition_data", "something" } }))
+            using(_logger.BeginScope(new Dictionary<string, object> { [{ "dacrookmetric", id }, { "correlationid", "1234" }, { "addition_data", "something" } }] }))
             {
                 _logger.LogWarning("Todo | Success | custom metric string information");
             }
