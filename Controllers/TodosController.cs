@@ -1,13 +1,12 @@
-﻿using System;
+﻿using DotNetCoreSqlDb.Models;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using DotNetCoreSqlDb.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.ApplicationInsights;
 
 namespace DotNetCoreSqlDb.Controllers
 {
@@ -17,40 +16,82 @@ namespace DotNetCoreSqlDb.Controllers
         private readonly ILogger _logger;
         private readonly TelemetryClient _telemetry;
 
-        public TodosController(MyDatabaseContext context, ILogger<TodosController> logger)
+        public TodosController(MyDatabaseContext context, ILogger<TodosController> logger, TelemetryClient telemetry)
         {
             this._context = context;
             this._logger = logger;
+            this._telemetry = telemetry;
         }
 
         // GET: Todos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Todo.ToListAsync());
+            var correlationId = Guid.NewGuid().ToString();
+            var logContext = new Dictionary<string, object> { ["correlationId"] = correlationId };
+            var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId };
+
+            using (_logger.BeginScope(logContext))
+            {
+                try
+                {
+                    _telemetry.TrackEvent("LoadingItems", eventContext);
+
+                    var items = await _context.Todo.ToListAsync();
+                    var eventMetrics = new Dictionary<string, double> { ["itemCount"] = items.Count };
+
+                    _logger.LogInformation($"Returning [{items.Count}] item(s)...");
+                    _telemetry.TrackEvent("LoadedItems", eventContext, eventMetrics);
+
+                    return View(items);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error occurred while loading items.");
+
+                    throw;
+                }
+            }
         }
 
         // GET: Todos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            var correlationId = Guid.NewGuid().ToString();
+            var logContext = new Dictionary<string, object> { ["correlationId"] = correlationId, ["itemId"] = id };
+            var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString() };
+
+            using (_logger.BeginScope(logContext))
             {
-                return NotFound();
+                try
+                {
+                    _telemetry.TrackEvent("LoadingItemDetail", eventContext);
+
+                    if (id == null)
+                    {
+                        _logger.LogWarning($"Item [{nameof(id)}] not provided.");
+                        return BadRequest($"Item [{nameof(id)}] required.");
+                    }
+
+                    var todo = await _context.Todo.FirstOrDefaultAsync(m => m.ID == id);
+
+                    if (todo == null)
+                    {
+                        _logger.LogWarning($"Item [{id}] not found.");
+                        return NotFound($"Item [{id}] not found.");
+                    }
+
+                    _logger.LogInformation($"Returning item [{id}]...");
+                    _telemetry.TrackEvent("ItemDetailLoaded", eventContext);
+
+                    return View(todo);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error occurred while retrieving item [{id}] details.");
+
+                    throw;
+                }
             }
-
-            var todo = await _context.Todo
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (todo == null)
-            {
-                throw new Exception($"Todo | Not Found | id:{id}");
-            }
-
-            using (_logger.BeginScope(new Dictionary<string, object> { ["correlationId"] = 1234, ["additionalData"] = "Data!" } ))
-            {
-                _logger.LogWarning("Todo | Success | Custom information");
-            }
-
-            return View(todo);
         }
 
         // GET: Todos/Create
@@ -72,6 +113,7 @@ namespace DotNetCoreSqlDb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(todo);
         }
 
@@ -84,6 +126,7 @@ namespace DotNetCoreSqlDb.Controllers
             }
 
             var todo = await _context.Todo.FindAsync(id);
+
             if (todo == null)
             {
                 return NotFound();
