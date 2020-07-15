@@ -39,14 +39,17 @@ namespace DotNetCoreSqlDb.Controllers
 
             var todo = await _context.Todo
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (todo == null)
             {
                 throw new Exception($"Todo | Not Found | id:{id}");
             }
-            using(_logger.BeginScope(new Dictionary<string, object> { [{ "dacrookmetric", id }, { "correlationid", "1234" }, { "addition_data", "something" } }] }))
+
+            using (_logger.BeginScope(new Dictionary<string, object> { ["correlationId"] = 1234, ["additionalData"] = "Data!" } ))
             {
-                _logger.LogWarning("Todo | Success | custom metric string information");
+                _logger.LogWarning("Todo | Success | Custom information");
             }
+
             return View(todo);
         }
 

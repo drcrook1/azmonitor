@@ -22,7 +22,9 @@ namespace DotNetCoreSqlDb
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                 {
-                    logging.AddAzureWebAppDiagnostics();
+                    // logging.AddAzureWebAppDiagnostics();
+
+                    logging.AddApplicationInsights("6540b8b1-1764-4c07-a7d0-562c7b97a836");
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
