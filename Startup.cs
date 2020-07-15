@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using DotNetCoreSqlDb.Models;
+using Microsoft.Extensions.Logging.ApplicationInsights;
+using Microsoft.Extensions.Logging;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace DotNetCoreSqlDb
 {
@@ -30,6 +33,13 @@ namespace DotNetCoreSqlDb
             services.AddControllersWithViews();
             services.AddDbContext<MyDatabaseContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            ApplicationInsightsServiceOptions aiOptions = new ApplicationInsightsServiceOptions();
+            // Disables adaptive sampling.
+            aiOptions.EnableAdaptiveSampling = false;
+
+            // Disables QuickPulse (Live Metrics stream).
+            aiOptions.EnableQuickPulseMetricStream = false;
+            services.AddApplicationInsightsTelemetry(aiOptions);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

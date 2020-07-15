@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotNetCoreSqlDb.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.ApplicationInsights;
 
 namespace DotNetCoreSqlDb.Controllers
 {
     public class TodosController : Controller
     {
         private readonly MyDatabaseContext _context;
+        private readonly ILogger _logger;
+        private readonly TelemetryClient _telemetry;
 
-        public TodosController(MyDatabaseContext context)
+        public TodosController(MyDatabaseContext context, ILogger<TodosController> logger)
         {
-            _context = context;
+            this._context = context;
+            this._logger = logger;
         }
 
         // GET: Todos
@@ -38,7 +43,10 @@ namespace DotNetCoreSqlDb.Controllers
             {
                 throw new Exception($"Todo | Not Found | id:{id}");
             }
-
+            using(_logger.BeginScope(new Dictionary<string, object> { { "dacrookmetric", id, "correlationid", "1234", "addition_data", "something" } }))
+            {
+                _logger.LogWarning("Todo | Success | custom metric string information");
+            }
             return View(todo);
         }
 
