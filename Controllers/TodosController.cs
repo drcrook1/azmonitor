@@ -91,6 +91,30 @@ namespace DotNetCoreSqlDb.Controllers
             return View(todo);
         }
 
+        // GET: Todos/RandomMetric/5
+        [HttpGet, ActionName("RandomMetric")]
+        public async Task<IActionResult> RandomMetric(int? id)
+        {
+            Random rand = new Random();
+            var metricValue = rand.NextDouble() * id;
+            using (_logger.BeginScope(new Dictionary<string, object> { ["correlationId"] = 1234, ["bloblocation"] = "bloblocation.wav", ["fluxCapacitance"] = metricValue }))
+            {
+                _logger.LogWarning("Todo | Success | Custom information");
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var todo = await _context.Todo.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         // POST: Todos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
