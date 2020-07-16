@@ -22,16 +22,8 @@ namespace DotNetCoreSqlDb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MyDatabaseContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-
-            // ApplicationInsightsServiceOptions aiOptions = new ApplicationInsightsServiceOptions();
-            // Disables adaptive sampling.
-            // aiOptions.EnableAdaptiveSampling = false;
-
-            // Disables QuickPulse (Live Metrics stream).
-            // aiOptions.EnableQuickPulseMetricStream = false;
-            // services.AddApplicationInsightsTelemetry(aiOptions);
+            services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            services.AddApplicationInsightsTelemetry("6540b8b1-1764-4c07-a7d0-562c7b97a836");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

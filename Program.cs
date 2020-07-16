@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 
 namespace DotNetCoreSqlDb
 {
@@ -22,9 +23,9 @@ namespace DotNetCoreSqlDb
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                 {
-                    // logging.AddAzureWebAppDiagnostics();
-
                     logging.AddApplicationInsights("6540b8b1-1764-4c07-a7d0-562c7b97a836");
+
+                    logging.AddFilter<ApplicationInsightsLoggerProvider>(string.Empty, LogLevel.Information);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
