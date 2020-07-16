@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreSqlDb", "DotNetCoreSqlDb.csproj", "{8409C49D-3D1B-47C4-A5DB-C3019A103004}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8409C49D-3D1B-47C4-A5DB-C3019A103004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8409C49D-3D1B-47C4-A5DB-C3019A103004}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8409C49D-3D1B-47C4-A5DB-C3019A103004}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8409C49D-3D1B-47C4-A5DB-C3019A103004}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {035BBF34-4FD7-41E3-8FCC-17FA28F6A9DE}
-	EndGlobalSection
-EndGlobal
-=======
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
@@ -50,4 +23,3 @@ Global
 		SolutionGuid = {1B6E580E-4BFF-4B49-B242-5E9AF408CD15}
 	EndGlobalSection
 EndGlobal
->>>>>>> 8d9a8240879dc3b7d2f0905f5489820f7631d8e6
