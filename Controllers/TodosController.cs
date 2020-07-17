@@ -134,26 +134,25 @@ namespace DotNetCoreSqlDb.Controllers
             return View(todo);
         }
 
-        // GET: Todos/RandomMetric/5
+        // GET: Todos/RandomMetric/5/blobname/correlationid
         [HttpGet, ActionName("RandomMetric")]
-        public async Task<IActionResult> RandomMetric(int? id)
+        public async Task<IActionResult> RandomMetric(int? id, string blobName, string correlationId)
         {
             Random rand = new Random();
-            var metricValue = rand.NextDouble() * id;
-            using (_logger.BeginScope(new Dictionary<string, object> { ["correlationId"] = 1234, ["bloblocation"] = "bloblocation.wav", ["fluxCapacitance"] = metricValue }))
-            {
-                _logger.LogWarning("Todo | Success | Custom information");
-            }
+            var metricValue = rand.NextDouble() * id;            
 
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
+            _telemetry.TrackEvent("RandomMetric", eventContext);
 
             var todo = await _context.Todo.FindAsync(id);
-            if (todo == null)
+            if (id == null || todo == null)
             {
-                return NotFound();
+                var logContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
+                using (_logger.BeginScope(logContext))
+                {
+                    _logger.LogError("Todos | RandomMetric | 404 | Not Found");
+                }
+                    return NotFound();
             }
             return RedirectToAction(nameof(Index));
         }
