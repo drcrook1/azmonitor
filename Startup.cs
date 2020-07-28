@@ -23,7 +23,7 @@ namespace DotNetCoreSqlDb
         {
             services.AddControllersWithViews();
             services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-            services.AddApplicationInsightsTelemetry("6540b8b1-1764-4c07-a7d0-562c7b97a836");
+            services.AddApplicationInsightsTelemetry("<AI Instrumentation Key>");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
