@@ -19,7 +19,7 @@
         "storageAccountName": "myStorageAccount",
         "storageAccountKey": "myKey"
       },
-      "azPowerShellVersion": "3.0",  // or "azCliVersion": "2.0.80"
+      "azPowerShellVersion": "3.0",
       "arguments": "-name \\\"John Dole\\\"",
       "environmentVariables": [
         {
@@ -27,7 +27,7 @@
           "secureValue": "if this is really a secret, don't put it here... in plain text..."
         }
       ],
-      "primaryScriptUri": "https://raw.githubusercontent.com/Azure/azure-docs-json-samples/master/deployment-script/deploymentscript-helloworld.ps1",
+      "primaryScriptUri": "https://raw.githubusercontent.com/drcrook1/azmonitor/master/deploy/post_deploy.ps1",
       "supportingScriptUris":[],
       "timeout": "PT30M",
       "cleanupPreference": "OnSuccess",
