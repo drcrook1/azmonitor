@@ -3,7 +3,7 @@
     "apiVersion": "2019-10-01-preview",
     "name": "runPowerShellInline",
     "location": "[resourceGroup().location]",
-    "kind": "AzurePowerShell", // or "AzureCLI"
+    "kind": "AzurePowerShell",
     "identity": {
       "type": "userAssigned",
       "userAssignedIdentities": {
