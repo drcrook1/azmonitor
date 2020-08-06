@@ -3,45 +3,44 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "identity": {
+            "type": "string",
+            "defaultValue": "/subscriptions/27d5a649-4b06-4dc5-8c78-d4ef2302dae0/resourcegroups/dacrooktestarm/providers/Microsoft.ManagedIdentity/userAssignedIdentities/dacrooktestidentity"
+          },
+          "name":{
+            "type": "string",
+            "defaultValue": "\\\"John Dole\\\""
+          }
     },
     "variables": {
+
     },
     "resources": [
+        
+    {
+        "type": "Microsoft.Resources/deploymentScripts",
+        "apiVersion": "2019-10-01-preview",
+        "name": "runPowerShellInlineWithOutput",
+        "location": "[resourceGroup().location]",
+        "kind": "AzurePowerShell",
+        "identity": {
+          "type": "userAssigned",
+          "userAssignedIdentities": {
+            "[parameters('identity')]": {
+            }
+          }
+        },
+        "properties": {
+          "forceUpdateTag": "[parameters('utcValue')]",
+          "azPowerShellVersion": "3.0",
+          "primaryScriptUri": "https://raw.githubusercontent.com/drcrook1/azmonitor/master/deploy/post_deploy.ps1",
+          "arguments": "[concat('-name', ' ', parameters('name'))]",
+          "timeout": "PT1H",
+          "cleanupPreference": "OnSuccess",
+          "retentionInterval": "P1D"
+        }
+      }
     ],
     "outputs": {
     }
 }
-
-
-
-
-{
-    "type": "Microsoft.Resources/deploymentScripts",
-    "apiVersion": "2019-10-01-preview",
-    "name": "runPowerShellInline",
-    "location": "[resourceGroup().location]",
-    "kind": "AzurePowerShell",
-    "properties": {
-      "forceUpdateTag": 1,
-      "containerSettings": {
-        "containerGroupName": "mycustomaci"
-      },
-      "storageAccountSettings": {
-        "storageAccountName": "myStorageAccount",
-        "storageAccountKey": "myKey"
-      },
-      "azPowerShellVersion": "3.0",
-      "arguments": "-name \\\"John Dole\\\"",
-      "environmentVariables": [
-        {
-          "name": "someSecret",
-          "secureValue": "KJDSFOIDSJK"
-        }
-      ],
-      "primaryScriptUri": "https://raw.githubusercontent.com/drcrook1/azmonitor/master/deploy/post_deploy.ps1",
-      "supportingScriptUris":[],
-      "timeout": "PT30M",
-      "cleanupPreference": "OnSuccess",
-      "retentionInterval": "P1D"
-    }
-  }
