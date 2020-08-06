@@ -10,6 +10,10 @@
           "name":{
             "type": "string",
             "defaultValue": "\\\"John Dole\\\""
+          },
+          "utcValue": {
+            "type": "string",
+            "defaultValue": "[utcNow()]"
           }
     },
     "variables": {
