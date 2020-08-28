@@ -47,6 +47,14 @@ resource "azurerm_function_app" "function" {
   resource_group_name       = azurerm_resource_group.rg.name
   app_service_plan_id       = azurerm_app_service_plan.asp.id
   storage_connection_string = azurerm_storage_account.storage.primary_connection_string
+  version                   = "~3"
+
+  app_settings = {
+    AzureWebJobsStorage = azurerm_storage_account.storage.primary_connection_string
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.appinsights.instrumentation_key
+    FUNCTIONS_WORKER_RUNTIME = "node"
+    WEBSITE_NODE_DEFAULT_VERSION = "~12"
+  }
 }
 
 
@@ -88,7 +96,7 @@ resource "azurerm_app_service" "apps" {
 
   app_settings = {
     "SOME_KEY" = "some-value"
-    "APPINSIGHTSKEY" = azurerm_application_insights.appinsights.instrumentation_key
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.appinsights.instrumentation_key
   }
 
   connection_string {

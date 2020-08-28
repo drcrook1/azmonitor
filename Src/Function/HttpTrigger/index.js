@@ -16,12 +16,12 @@ const axios = require("axios");
 
 /* Actual Function logic */
 const httpTrigger = async function (context, req) {
-    context.log.info("hello world");
+
     // equiv - tracked under operation id
-    //appInsights.defaultClient.trackTrace({message: "hello world"});
+    
     var random = Math.random()*10;
     random =  Math.round(random);
-    const response = await axios.get("https://dacrookmonitorweb.azurewebsites.net/Todos/RandomMetric/" + random);
+    const response = await axios.get(process.env["WebAppURL"] + random);
 
     context.res = {
         status: response.status
