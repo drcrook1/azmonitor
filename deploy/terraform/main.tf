@@ -53,7 +53,13 @@ resource "azurerm_function_app" "function" {
     AzureWebJobsStorage = azurerm_storage_account.storage.primary_connection_string
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.appinsights.instrumentation_key
     FUNCTIONS_WORKER_RUNTIME = "node"
-    WEBSITE_NODE_DEFAULT_VERSION = "~12"
+    WEBSITE_NODE_DEFAULT_VERSION = "~12",
+    WebAppURL = "https://azmonitor-app-service-${var.environment}.azurewebsites.net/Todos/RandomMetric/",
+    FunctionAppURL = "https://azmonitor-function-${var.environment}.azurewebsites.net"
+  }
+
+  site_config {
+    always_on = true
   }
 }
 
@@ -92,16 +98,12 @@ resource "azurerm_app_service" "apps" {
   site_config {
     dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit"
+    always_on                = true
   }
 
   app_settings = {
     "SOME_KEY" = "some-value"
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.appinsights.instrumentation_key
-  }
-
-  connection_string {
-    name  = "Database"
-    type  = "SQLServer"
-    value = "Server=tcp:${azurerm_sql_server.sqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.sqldb.name};Persist Security Info=False;User ID=${var.sqluser};Password=${var.sqlpassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "Database" = "Server=tcp:${azurerm_sql_server.sqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.sqldb.name};Persist Security Info=False;User ID=${var.sqluser};Password=${var.sqlpassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }

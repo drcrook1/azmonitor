@@ -7,7 +7,7 @@ FROM ubuntu:18.04
 RUN apt-get clean -y
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install wget gnupg curl unzip jq apt-transport-https dos2unix -y
+RUN apt-get install wget gnupg curl unzip jq apt-transport-https dos2unix zip -y
 
 ######################################
 #       START SECTION 1              #
@@ -35,6 +35,14 @@ RUN dpkg -i packages-microsoft-prod.deb
 RUN apt-get update -y
 RUN apt-get install azure-functions-core-tools-3 -y
 
+######################################
+#       START SECTION 2              #
+#       INSTALL .NET CORE            #
+#       SDK                          #
+######################################
+RUN apt-get install dotnet-sdk-3.1 -y
+RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool restore
 
 ######################################
 #       START SECTION                #

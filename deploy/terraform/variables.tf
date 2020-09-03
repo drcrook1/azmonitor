@@ -10,7 +10,7 @@ variable "location" {
 
 variable "sqluser" {
   description   = "Azure region for resources"
-  default       = "dacrook"
+  default       = "dacrook01"
 }
 
 variable "sqlpassword" {

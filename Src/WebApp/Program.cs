@@ -23,7 +23,7 @@ namespace DotNetCoreSqlDb
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                 {
-                    logging.AddApplicationInsights("<AI Instrumentation Key>");
+                    //logging.AddApplicationInsights("APPINSIGHTS_INSTRUMENTATIONKEY");
 
                     logging.AddFilter<ApplicationInsightsLoggerProvider>(string.Empty, LogLevel.Information);
                 })

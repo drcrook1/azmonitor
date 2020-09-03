@@ -52,11 +52,11 @@ export TF_VAR_sqlpassword="$SQL_PASSWORD"
 terraform init
 
 cecho "Starting Terraform Plan..." $magenta
-terraform plan -out=tfplan.out
+terraform plan -state=/mnt/tfstate/terraform.tfstate -out=tfplan.out
 cecho "Completed Terraform Plan..." $green
 
 cecho "Starting Terraform Apply..." $magenta
-terraform apply -auto-approve "tfplan.out"
+terraform apply -state=/mnt/tfstate/terraform.tfstate -auto-approve "tfplan.out"
 cecho "Completed Terraform Apply..." $green
 
 

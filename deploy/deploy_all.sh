@@ -2,6 +2,12 @@
 
 az login
 cd ./terraform
-bash ./terraform_deploy.sh
-##Add the deployment of the fun tion code##
-bash ./deploy_func.sh
+source ./terraform_deploy.sh
+##Add the deployment of the function code##
+cd ..
+source ./deploy_func.sh
+##Add the deployment of the webApp code##
+cd ..
+cd ..
+cd ./deploy
+source ./deploy_app.sh
