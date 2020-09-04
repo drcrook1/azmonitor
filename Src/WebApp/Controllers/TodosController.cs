@@ -14,57 +14,54 @@ namespace DotNetCoreSqlDb.Controllers
     {
         private readonly MyDatabaseContext _context;
         private readonly ILogger _logger;
-        //private readonly TelemetryClient _telemetry;
+        private readonly TelemetryClient _telemetry;
 
         public TodosController(MyDatabaseContext context, ILogger<TodosController> logger, TelemetryClient telemetry)
         {
             this._context = context;
             this._logger = logger;
-            //this._telemetry = telemetry;
+            this._telemetry = telemetry;
         }
 
         // GET: Todos
         public async Task<IActionResult> Index()
         {
-            var correlationId = Guid.NewGuid().ToString();
-            var logContext = new Dictionary<string, object> { ["correlationId"] = correlationId };
+            //var correlationId = Guid.NewGuid().ToString();
+            //var logContext = new Dictionary<string, object> { ["correlationId"] = correlationId };
             //var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId };
-
-            using (_logger.BeginScope(logContext))
+            
+            try
             {
-                try
-                {
-                    //_telemetry.TrackEvent("LoadingItems", eventContext);
+                //_telemetry.TrackEvent("LoadingItems", eventContext);
 
-                    var items = await _context.Todo.ToListAsync();
-                    //var eventMetrics = new Dictionary<string, double> { ["itemCount"] = items.Count };
+                var items = await _context.Todo.ToListAsync();
+                var eventMetrics = new Dictionary<string, double> { ["itemCount"] = items.Count };
 
-                    _logger.LogInformation($"Returning [{items.Count}] item(s)...");
-                    //_telemetry.TrackEvent("LoadedItems", eventContext, eventMetrics);
+                _logger.LogInformation($"Returning [{items.Count}] item(s)...");
 
-                    return View(items);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error occurred while loading items.");
-
-                    throw;
-                }
+                return View(items);
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while loading items.");
+
+                throw;
+            }
+       
         }
 
         // GET: Todos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             var correlationId = Guid.NewGuid().ToString();
-            var logContext = new Dictionary<string, object> { ["correlationId"] = correlationId, ["itemId"] = id };
-           // var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString() };
+            var logContext = new Dictionary<string, object> {["itemId"] = id };
+            var eventContext = new Dictionary<string, string> {["itemId"] = id.ToString() };
 
             using (_logger.BeginScope(logContext))
             {
                 try
                 {
-                    //_telemetry.TrackEvent("LoadingItemDetail", eventContext);
+                   _telemetry.TrackEvent("LoadingItemDetail", eventContext);
 
                     if (id == null)
                     {
@@ -81,7 +78,7 @@ namespace DotNetCoreSqlDb.Controllers
                     }
 
                     _logger.LogInformation($"Returning item [{id}]...");
-                    //_telemetry.TrackEvent("ItemDetailLoaded", eventContext);
+                    _telemetry.TrackEvent("ItemDetailLoaded", eventContext);
 
                     return View(todo);
                 }
@@ -134,20 +131,20 @@ namespace DotNetCoreSqlDb.Controllers
             return View(todo);
         }
 
-        // GET: Todos/RandomMetric/5/blobname/correlationid
+        // GET: Todos/RandomMetric/5/blobname/operationID
         [HttpGet, ActionName("RandomMetric")]
         public async Task<IActionResult> RandomMetric(int? id, string blobName, string correlationId)
         {
             Random rand = new Random();
             var metricValue = rand.NextDouble() * id;            
 
-           // var eventContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
-           // _telemetry.TrackEvent("RandomMetric", eventContext);
+           var eventContext = new Dictionary<string, string> {["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
+           _telemetry.TrackEvent("RandomMetric", eventContext);
 
             var todo = await _context.Todo.FindAsync(id);
             if (id == null || todo == null)
             {
-                var logContext = new Dictionary<string, string> { ["correlationId"] = correlationId, ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
+                var logContext = new Dictionary<string, string> { ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
                 using (_logger.BeginScope(logContext))
                 {
                     _logger.LogError("Todos | RandomMetric | 404 | Not Found");

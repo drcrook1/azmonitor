@@ -32,7 +32,12 @@ const httpTrigger = async function (context, req) {
 module.exports = async function (context, req) {
     // Start an AI Correlation Context using the provided Function context
     const correlationContext = appInsights.startOperation(context, req);
-    context.log.info(correlationContext.operation.id);
+    
+    //Create blob file that contains operationId
+    context.bindings.outputBlob = "Information " + correlationContext.operation.id;
+    let client = appInsights.defaultClient; 
+    client.trackEvent("Blob name: " + context.bindingData.sys.randGuid);
+    
     // Wrap the Function runtime with correlationContext
     return appInsights.wrapWithCorrelationContext(async () => {
         const startTime = Date.now(); // Start trackRequest timer

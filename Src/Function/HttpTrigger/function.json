@@ -14,6 +14,13 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "name": "outputBlob",
+      "type": "blob",
+      "direction": "out",
+      "path": "outcontainer01/{rand-guid}.txt",
+      "connection": "AzureWebJobsStorage"
     }
   ]
 }
