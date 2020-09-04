@@ -1,6 +1,6 @@
 echo "Create blob container"
 
-//az storage container create --account-name azmonitor$TARGET_ENV --name outcontainer01 --auth-mode login
+az storage container create --account-name azmonitor$TARGET_ENV --name outcontainer01 --auth-mode login
 
 echo "Deploying Function code using Az commands"
 cd ..
