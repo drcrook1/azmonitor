@@ -3,7 +3,7 @@ cd ..
 cd ./Src/WebApp
 
 echo "database"
-az sql server firewall-rule create -g azmonitor-dacrook01 --server azmonitorsqlserverdacrook01 -n firewallIPRange --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255
+az sql server firewall-rule create -g azmonitor-$TARGET_ENV --server azmonitorsqlserver$TARGET_ENV -n firewallIPRange --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255
 echo "Attemp to read Terraform output"
 MY_SQL_DB_CONN_STR=$(terraform output -state=/mnt/tfstate/terraform.tfstate sql_conn_str)
 echo $MY_SQL_DB_CONN_STR
@@ -24,4 +24,4 @@ cd ./publish
 
 zip -r WebApp.zip .
 
-az webapp deployment source config-zip -g azmonitor-dacrook01 -n azmonitor-app-service-dacrook01 --src WebApp.zip
+az webapp deployment source config-zip -g azmonitor-$TARGET_ENV -n azmonitor-app-service-$TARGET_ENV --src WebApp.zip
