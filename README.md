@@ -36,4 +36,9 @@
        5. zip
        6. deploy
 4. Completely Deployed
+   1. Show Azure Portal
+   2. Show Web App & How to navigate to app url
+      1. enter a todo or two
+   3. Show App Insights Main Page
 
+END HERE.
