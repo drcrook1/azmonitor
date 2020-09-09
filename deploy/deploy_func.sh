@@ -9,3 +9,4 @@ cd ./Src/Function
 zip -r Function.zip .
 
 az functionapp deployment source config-zip -g azmonitor-$TARGET_ENV -n azmonitor-function-$TARGET_ENV --src Function.zip
+echo "COMPLETED FUNCTION APP DEPLOYS"
