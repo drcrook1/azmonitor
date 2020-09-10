@@ -21,11 +21,24 @@ const httpTrigger = async function (context, req) {
     
     var random = Math.random()*10;
     random =  Math.round(random);
-    const response = await axios.get(process.env["WebAppURL"] + random);
 
-    context.res = {
-        status: response.status
-    };
+    try {
+        await axios.get(process.env["WebAppURL"] + random);
+        context.res = {
+            status: 200,
+            body: "All Good Captain!"
+        };
+    } catch(err)
+    {
+        console.log("Random Item Not Found!");
+        context.res = {
+            status: 404,
+            body: "Not Found!"
+        };
+    }
+
+
+    context.done();
 };
 
 // Entry point for the functions runtime - wrapper for app insights correlation context
@@ -42,6 +55,31 @@ module.exports = async function (context, req) {
 
         // Run the Function
         await httpTrigger(context, req);
+
+        appInsights.defaultClient.trackRequest({
+            name: context.req.method + " " + context.req.url,
+            resultCode: context.res.status,
+            success: true,
+            url: req.url,
+            duration: Date.now() - startTime,
+            id: correlationContext.operation.parentId,
+            properties: {
+                blob_location: "correlationContext.operation.id" + ".txt"
+                }
+        });
+
+        appInsights.defaultClient.trackEvent(
+            {
+                name: "HttpTriggeredEvent",
+                resultCode: context.res.status,
+                success: true,
+                url: req.url,
+                duration: Date.now() - startTime,
+                id: correlationContext.operation.parentId,
+                properties: {
+                    blob_location: "correlationContext.operation.id" + ".txt"
+                    }
+            });
 
         appInsights.defaultClient.flush();
     }, correlationContext)();
