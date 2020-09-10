@@ -35,8 +35,6 @@ module.exports = async function (context, req) {
     
     //Create blob file that contains operationId
     context.bindings.outputBlob = "Information " + correlationContext.operation.id;
-    let client = appInsights.defaultClient; 
-    client.trackEvent("Blob name: " + context.bindingData.sys.randGuid);
     
     // Wrap the Function runtime with correlationContext
     return appInsights.wrapWithCorrelationContext(async () => {
