@@ -62,22 +62,19 @@ module.exports = async function (context, req) {
             success: true,
             url: req.url,
             duration: Date.now() - startTime,
-            id: correlationContext.operation.parentId,
-            properties: {
-                blob_location: "correlationContext.operation.id" + ".txt"
-                }
+            id: correlationContext.operation.parentId
         });
 
         appInsights.defaultClient.trackEvent(
             {
-                name: "HttpTriggeredEvent",
+                name: "Http Processed Blob Data",
                 resultCode: context.res.status,
                 success: true,
                 url: req.url,
                 duration: Date.now() - startTime,
                 id: correlationContext.operation.parentId,
                 properties: {
-                    blob_location: "correlationContext.operation.id" + ".txt"
+                    blob_location: correlationContext.operation.id + ".txt"
                     }
             });
 
