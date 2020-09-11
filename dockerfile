@@ -61,6 +61,13 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
 
+#       START SECTION                #
+#       INSTALL NODE                 #
+######################################
+RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install nodejs -y
+
 ######################################
 #       START SECTION 3              #
 #       ADD TO PATH                  #

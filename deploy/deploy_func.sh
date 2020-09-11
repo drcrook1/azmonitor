@@ -6,6 +6,8 @@ echo "Deploying Function code using Az commands"
 cd ..
 cd ./Src/Function
 
+npm install
+
 zip -r Function.zip .
 
 az functionapp deployment source config-zip -g azmonitor-$TARGET_ENV -n azmonitor-function-$TARGET_ENV --src Function.zip

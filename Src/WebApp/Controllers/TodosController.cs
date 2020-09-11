@@ -139,7 +139,7 @@ namespace DotNetCoreSqlDb.Controllers
             var metricValue = rand.NextDouble() * id;            
 
            var eventContext = new Dictionary<string, string> {["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
-           _telemetry.TrackEvent("RandomMetric", eventContext);
+           _telemetry.TrackEvent("Computed Flux Capacitance", eventContext);
 
             var todo = await _context.Todo.FindAsync(id);
             if (id == null || todo == null)
@@ -147,7 +147,7 @@ namespace DotNetCoreSqlDb.Controllers
                 var logContext = new Dictionary<string, string> { ["itemId"] = id.ToString(), ["bloblocation"] = blobName, ["fluxCapacitance"] = metricValue.ToString() };
                 using (_logger.BeginScope(logContext))
                 {
-                    _logger.LogError("Todos | RandomMetric | 404 | Not Found");
+                    _logger.LogError("Todos | CFC | 404 | Not Found");
                 }
                     return NotFound();
             }
