@@ -8,7 +8,10 @@
   },
   "dependencies": {
     "applicationinsights": "^1.8.2",
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "@azure/storage-blob": "^12.0.0",
+    "@types/dotenv": "^4.0.3",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {}
 }
