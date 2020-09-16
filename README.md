@@ -1,9 +1,18 @@
-# Deployment Walkthrough Video Script
+
+# Video Documentation
+## English
+### Introduction
+[![](http://img.youtube.com/vi/_AQ-7y2CxZI/0.jpg)](http://www.youtube.com/watch?v=_AQ-7y2CxZI "Introduction")
+### How to Deploy
+[![](http://img.youtube.com/vi/4LQ-8zOpRaE/0.jpg)](http://www.youtube.com/watch?v=4LQ-8zOpRaE "Deployment")
+
+
+# Video Scripts
 
 NOTES: 
 Keep the high level walk through from accessibility perspective.
 Add to "Monitoring Community Repo"
-Add to FTA Private Repo
+Add to FTA Private Repo via link.
 Add to FTA Public Repo
 
 
