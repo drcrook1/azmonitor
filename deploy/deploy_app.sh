@@ -11,7 +11,7 @@ echo "Terraform output read it"
 sed -i -e "s/{{MY_SQL_DB_CONN_STRING}}/$MY_SQL_DB_CONN_STR/g" appsettings.json
 echo "$(<appsettings.json)"
 rm -r Migrations
-dotnet add package Microsoft.EntityFrameworkCore.Design
+# dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool restore
 echo "starting EF migration"
 dotnet ef migrations add InitialCreate

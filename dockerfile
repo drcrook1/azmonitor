@@ -41,7 +41,7 @@ RUN apt-get install azure-functions-core-tools-3 -y
 #       SDK                          #
 ######################################
 RUN apt-get install dotnet-sdk-3.1 -y
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --global dotnet-ef --version 3.1.8
 RUN dotnet tool restore
 
 ######################################
