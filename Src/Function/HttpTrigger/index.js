@@ -13,6 +13,7 @@ appInsights.setup(process.env["APPINSIGHTS_INSTRUMENTATIONKEY"])
     .start();
 
 const axios = require("axios");
+const { BlobServiceClient } = require('@azure/storage-blob');
 
 /* Actual Function logic */
 const httpTrigger = async function (context, req) {
@@ -46,8 +47,25 @@ module.exports = async function (context, req) {
     // Start an AI Correlation Context using the provided Function context
     const correlationContext = appInsights.startOperation(context, req);
     
-    //Create blob file that contains operationId
-    context.bindings.outputBlob = "Information " + correlationContext.operation.id;
+     
+    // Create the BlobServiceClient object which will be used to create a container client
+    const blobServiceClient = BlobServiceClient.fromConnectionString(process.env["AzureWebJobsStorage"]);
+    // Save container name into a variable that we already created
+    const containerName = "outcontainer01";
+    // Get a reference to a container
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    
+    // Create a unique name for the blob
+    const blobName = correlationContext.operation.id + '.txt';
+
+    // Get a block blob client
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+    // Upload data to the blob
+    const data = "BlobName " + correlationContext.operation.id;
+    const uploadBlobResponse = await blockBlobClient.upload(data, data.length);
+    context.log.info("Blob was uploaded successfully. requestId: ", uploadBlobResponse.requestId);
+
     
     // Wrap the Function runtime with correlationContext
     return appInsights.wrapWithCorrelationContext(async () => {
@@ -75,7 +93,7 @@ module.exports = async function (context, req) {
                 id: correlationContext.operation.parentId,
                 properties: {
                     blob_location: correlationContext.operation.id + ".txt"
-                    }
+                }
             });
 
         appInsights.defaultClient.flush();
