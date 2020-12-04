@@ -1,20 +1,20 @@
 
-# Video Documentation
-## English
-### Introduction
+# Videos
+
+### Introduction - English
 [![](http://img.youtube.com/vi/Mrnu2R8lk3s/0.jpg)](http://www.youtube.com/watch?v=Mrnu2R8lk3s "Introduction")
-### How to Deploy
+
+### Introduccion - Español
+[![](https://i9.ytimg.com/vi/b0JoZSf6XtA/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLCDJo5W3g2Phk6mLyjq45ZjGfHrqQ)](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
+
+### How to Deploy - English
 [![](http://img.youtube.com/vi/4LQ-8zOpRaE/0.jpg)](http://www.youtube.com/watch?v=4LQ-8zOpRaE "Deployment")
 
+### Como desplegar la solucion - Español
+[![](https://i9.ytimg.com/vi/LGuBrL68L6Q/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLDUsbM1yuh0idqIuyQV38GhJN45dg)](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
 
-# Video Scripts
 
-NOTES: 
-Keep the high level walk through from accessibility perspective.
-Add to "Monitoring Community Repo"
-Add to FTA Private Repo via link.
-Add to FTA Public Repo
-
+# Documentation in English
 
 ## Tactical: How to Execute
 INTROS!
@@ -79,12 +79,7 @@ INTROS!
 4.  As a stretch goal we wanted to make sure we adhered to the W3C standard and this is showcased in both .net core & node.js.  We did this because:
     1.  Azure is moving to the W3C standard for traceability and therefor if we implement it, we can inheret following the dependency chain if it interacts with other services which are Azure based and W3C compliant for distributed tracing.
 
-# Documentacion
-## Español
-### Introduccion
-[![](https://i9.ytimg.com/vi/b0JoZSf6XtA/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLCDJo5W3g2Phk6mLyjq45ZjGfHrqQ)](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
-### Como desplegar la solucion
-[![](https://i9.ytimg.com/vi/LGuBrL68L6Q/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLDUsbM1yuh0idqIuyQV38GhJN45dg)](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
+# Documentacion en Español
 
 ## Primer video: Introduccion y Caso de uso
 0. Tuvimos un cliente real con un problema, pero en este caso lo llamaremos Contoso en su lugar.
@@ -102,7 +97,6 @@ INTROS!
    1. En App Insights, Logs mendiante Kusto Query curremos el evento customizable donde customdimensions.fluxcapacitance es mayor que 8.0. Busque una solicitud, luego busque el ID de operación para encontrar la cadena y mostrar la ubicación del blob donde podemos tomar los datos de origen que ahora deberían ser utilizado para entrenar a nuestro modelo en ML.
 4. Como objetivo ambicioso, queríamos asegurarnos de cumplir con el estándar W3C y esto se muestra tanto en .net core como en node.js. Hicimos esto porque:
     1. Azure se está moviendo hacia el estándar W3C para la trazabilidad y, por lo tanto, si lo implementamos, podemos heredar la cadena de dependencia si interactúa con otros servicios que están basados ​​en Azure y cumplen con W3C para el rastreo distribuido.
-
 
 
 ## Segundo video
