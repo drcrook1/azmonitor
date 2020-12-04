@@ -82,9 +82,9 @@ INTROS!
 # Documentacion
 ## Español
 ### Introduccion
-[![]()](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
+[![](https://i9.ytimg.com/vi/b0JoZSf6XtA/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLCDJo5W3g2Phk6mLyjq45ZjGfHrqQ)](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
 ### Como desplegar la solucion
-[![]()](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
+[![](https://i9.ytimg.com/vi/LGuBrL68L6Q/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLDUsbM1yuh0idqIuyQV38GhJN45dg)](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
 
 ## Primer video: Introduccion y Caso de uso
 0. Tuvimos un cliente real con un problema, pero en este caso lo llamaremos Contoso en su lugar.
