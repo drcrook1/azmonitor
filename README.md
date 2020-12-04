@@ -5,13 +5,13 @@
 [![](http://img.youtube.com/vi/Mrnu2R8lk3s/0.jpg)](http://www.youtube.com/watch?v=Mrnu2R8lk3s "Introduction")
 
 ### Introduccion - Español
-[![](https://i9.ytimg.com/vi/b0JoZSf6XtA/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLCDJo5W3g2Phk6mLyjq45ZjGfHrqQ)](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
+[![](https://i9.ytimg.com/vi/b0JoZSf6XtA/mq1.jpg?sqp=CKyHqv4F&rs=AOn4CLAoHc5CQcIyPv47sDixrmnrY_Jp9g)](https://www.youtube.com/watch?v=b0JoZSf6XtA "Introduccion")
 
 ### How to Deploy - English
 [![](http://img.youtube.com/vi/4LQ-8zOpRaE/0.jpg)](http://www.youtube.com/watch?v=4LQ-8zOpRaE "Deployment")
 
 ### Como desplegar la solucion - Español
-[![](https://i9.ytimg.com/vi/LGuBrL68L6Q/mq1.jpg?sqp=CPTZqP4F&rs=AOn4CLDUsbM1yuh0idqIuyQV38GhJN45dg)](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
+[![](https://i9.ytimg.com/vi/LGuBrL68L6Q/mq1.jpg?sqp=CNiJqv4F&rs=AOn4CLCB1viiYRsws1YYawkCgyeM0L5tZQ)](https://www.youtube.com/watch?v=LGuBrL68L6Q "Despliegue de la solucion")
 
 
 # Documentation in English
@@ -60,7 +60,7 @@ INTROS!
 
 END HERE.
 
-# Usecase & Usage Demo
+## Usecase & Usage Demo
 INTROS!
 0.  We had a real customer with similar problem space, but we will talk about contoso instead.
 1.  Contoso is building a distributed ML Inference System.
@@ -110,7 +110,7 @@ INTROS!
 3. Modificar dev.env
 4. Ejecutando build_deploy.cmd
 
-## Estratégico: cómo funciona
+## Estratégico: Cómo funciona
 1. Composición de la estructura de carpetas
 2. DockerFile
 3. implementar carpeta en profundidad
